@@ -1,18 +1,9 @@
 package com.nameless.infra;
 
-import org.nameless.customer.core.Customer;
-import org.nameless.customer.infra.CustomerRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class CustomerJPARepository implements CustomerRepository {
-    @Override
-    public void save(Customer customer) {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
-    }
-
-    @Override
-    public Customer findById(String customerId) {
-        return null;
-    }
+@Component
+public interface CustomerJPARepository extends JpaRepository<CustomerEntity, Integer> {
 }
