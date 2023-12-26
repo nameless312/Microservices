@@ -14,8 +14,9 @@ public class CustomerJPARepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public void saveCustomer(Customer customer) {
-        customerJPARepository.save(mapToEntity(customer));
+    public Customer saveCustomer(Customer customer) {
+        CustomerEntity customerEntity = customerJPARepository.saveAndFlush(mapToEntity(customer));
+        return mapToDomainModel(customerEntity);
     }
 
     @Override
