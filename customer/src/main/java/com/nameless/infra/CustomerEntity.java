@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "customer")
 public class CustomerEntity {
     @Id
     @SequenceGenerator(
