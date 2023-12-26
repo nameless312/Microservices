@@ -1,8 +1,7 @@
-package com.nameless;
+package org.nameless;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class CustomerApplication {

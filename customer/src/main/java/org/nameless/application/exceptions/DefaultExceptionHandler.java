@@ -1,4 +1,4 @@
-package com.nameless.application.exceptions;
+package org.nameless.application.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @ControllerAdvice
 public class DefaultExceptionHandler {

@@ -1,4 +1,4 @@
-package com.nameless.application;
+package org.nameless.application;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;

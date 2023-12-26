@@ -1,4 +1,4 @@
-package com.nameless.application;
+package org.nameless.application;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,4 +1,4 @@
-package com.nameless.infra;
+package org.nameless.infra;
 
 import org.nameless.core.customer.Customer;
 import org.nameless.infra.customer.CustomerRepository;

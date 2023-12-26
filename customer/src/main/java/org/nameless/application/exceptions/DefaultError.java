@@ -1,4 +1,4 @@
-package com.nameless.application.exceptions;
+package org.nameless.application.exceptions;
 
 import java.time.LocalDateTime;
 import java.util.List;

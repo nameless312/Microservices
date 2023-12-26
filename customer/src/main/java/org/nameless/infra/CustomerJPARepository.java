@@ -1,4 +1,4 @@
-package com.nameless.infra;
+package org.nameless.infra;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

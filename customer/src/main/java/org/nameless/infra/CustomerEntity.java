@@ -1,4 +1,4 @@
-package com.nameless.infra;
+package org.nameless.infra;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
