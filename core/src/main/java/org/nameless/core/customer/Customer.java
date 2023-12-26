@@ -1,4 +1,4 @@
-package org.nameless.customer.core;
+package org.nameless.core.customer;
 
 import lombok.Builder;
 import lombok.Data;

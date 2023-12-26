@@ -1,8 +1,7 @@
 package com.nameless.infra;
 
-import org.nameless.customer.core.Customer;
-import org.nameless.customer.infra.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.nameless.core.customer.Customer;
+import org.nameless.infra.customer.CustomerRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 

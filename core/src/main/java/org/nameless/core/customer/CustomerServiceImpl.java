@@ -1,5 +1,5 @@
-package org.nameless.customer.core;
-import org.nameless.customer.infra.CustomerRepository;
+package org.nameless.core.customer;
+import org.nameless.infra.customer.CustomerRepository;
 
 public record CustomerServiceImpl(CustomerRepository customerRepository) implements CustomerService {
     public void registerCustomer(Customer customer) {

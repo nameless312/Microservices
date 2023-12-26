@@ -1,7 +1,9 @@
 package com.nameless.application;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record CustomerRegistrationRequest(
-        String firstName,
-        String lastName,
-        String email
+        @NotBlank(message = "firstName must be set") String firstName,
+        @NotBlank(message = "lastName must be set") String lastName,
+        @NotBlank(message = "email must be set") String email
 ) { }

@@ -1,4 +1,4 @@
-package org.nameless.customer.core;
+package org.nameless.core.customer;
 
 public interface CustomerService {
     void registerCustomer(Customer customer);

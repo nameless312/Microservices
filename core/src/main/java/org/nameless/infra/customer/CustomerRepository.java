@@ -1,6 +1,6 @@
-package org.nameless.customer.infra;
+package org.nameless.infra.customer;
 
-import org.nameless.customer.core.Customer;
+import org.nameless.core.customer.Customer;
 
 public interface CustomerRepository {
     void saveCustomer(Customer customer);
