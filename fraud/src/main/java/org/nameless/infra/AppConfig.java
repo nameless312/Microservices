@@ -1,16 +1,16 @@
 package org.nameless.infra;
 
-import org.nameless.core.fraud.FraudService;
-import org.nameless.core.fraud.FraudServiceImpl;
-import org.nameless.infra.fraud.FraudRepository;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class AppConfig {
 
     @Bean
-    public FraudService fraudService(FraudRepository fraudRepository) {
-        return new FraudServiceImpl(fraudRepository);
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
