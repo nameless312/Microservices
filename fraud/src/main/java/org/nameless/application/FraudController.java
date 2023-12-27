@@ -2,6 +2,7 @@ package org.nameless.application;
 
 import lombok.extern.slf4j.Slf4j;
 import org.nameless.core.fraud.FraudService;
+import org.nameless.fraud.FraudCheckResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

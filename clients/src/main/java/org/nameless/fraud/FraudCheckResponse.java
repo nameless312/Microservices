@@ -1,4 +1,4 @@
-package org.nameless.application;
+package org.nameless.fraud;
 
 public record FraudCheckResponse(Boolean isFraudster) {
 }

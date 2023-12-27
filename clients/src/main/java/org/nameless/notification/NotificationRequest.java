@@ -1,4 +1,4 @@
-package org.nameless.application;
+package org.nameless.notification;
 
 import lombok.Builder;
 import lombok.Data;

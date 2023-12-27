@@ -2,7 +2,10 @@ package org.nameless.application;
 import lombok.extern.slf4j.Slf4j;
 import org.nameless.core.customer.Customer;
 import org.nameless.core.customer.CustomerService;
+import org.nameless.fraud.FraudClient;
 import org.nameless.infra.customer.CustomerRepository;
+import org.nameless.notification.NotificationClient;
+import org.nameless.notification.NotificationRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,11 +13,15 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
+    private final NotificationClient noficationClient;
+    private final FraudClient fraudClient;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, RestTemplate restTemplate) {
+    public CustomerServiceImpl(CustomerRepository customerRepository,
+                               NotificationClient noficationClient,
+                               FraudClient fraudClient) {
         this.customerRepository = customerRepository;
-        this.restTemplate = restTemplate;
+        this.noficationClient = noficationClient;
+        this.fraudClient = fraudClient;
     }
 
     public void registerCustomer(Customer customer) {
@@ -22,8 +29,11 @@ public class CustomerServiceImpl implements CustomerService {
         // check email
 
         // check if fraudster
-        restTemplate.getForObject("http://FRAUD/api/v1/fraud-check/{customerId}",
-                Object.class,
-                customer.getId());
+        fraudClient.isFraudster(customer.getId());
+
+        // send notification
+        noficationClient.sendNotification(
+                new NotificationRequest(customer.getId(), customer.getEmail(), "Hi there mr.")
+        );
     }
 }
