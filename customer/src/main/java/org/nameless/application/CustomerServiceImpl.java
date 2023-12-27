@@ -1,26 +1,26 @@
 package org.nameless.application;
+
 import lombok.extern.slf4j.Slf4j;
+import org.nameless.amqp.RabbitMQMessageProducer;
 import org.nameless.core.customer.Customer;
 import org.nameless.core.customer.CustomerService;
 import org.nameless.fraud.FraudClient;
 import org.nameless.infra.customer.CustomerRepository;
-import org.nameless.notification.NotificationClient;
 import org.nameless.notification.NotificationRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
-    private final NotificationClient noficationClient;
+    private RabbitMQMessageProducer rabbitMQMessageProducer;
     private final FraudClient fraudClient;
 
     public CustomerServiceImpl(CustomerRepository customerRepository,
-                               NotificationClient noficationClient,
+                               RabbitMQMessageProducer rabbitMQMessageProducer,
                                FraudClient fraudClient) {
         this.customerRepository = customerRepository;
-        this.noficationClient = noficationClient;
+        this.rabbitMQMessageProducer = rabbitMQMessageProducer;
         this.fraudClient = fraudClient;
     }
 
@@ -32,8 +32,13 @@ public class CustomerServiceImpl implements CustomerService {
         fraudClient.isFraudster(customer.getId());
 
         // send notification
-        noficationClient.sendNotification(
-                new NotificationRequest(customer.getId(), customer.getEmail(), "Hi there mr.")
+        NotificationRequest notificationRequest =
+                new NotificationRequest(customer.getId(), customer.getEmail(), "Hi there mr.");
+
+        rabbitMQMessageProducer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key"
         );
     }
 }
