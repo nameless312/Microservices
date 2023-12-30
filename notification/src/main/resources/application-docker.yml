@@ -18,8 +18,6 @@ spring:
   rabbitmq:
     addresses: rabbitmq:5672
   mail:
-    host: smtp-relay.brevo.com
-    port: 587
     properties:
       mail:
         smtp:
