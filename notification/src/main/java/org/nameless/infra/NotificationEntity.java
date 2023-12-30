@@ -28,6 +28,7 @@ public class NotificationEntity {
     private Integer toCustomerId;
     private String toCustomerEmail;
     private String sender;
+    private String subject;
     private String message;
     private LocalDateTime sentAt;
 }

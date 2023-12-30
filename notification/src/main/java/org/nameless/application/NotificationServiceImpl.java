@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public record NotificationServiceImpl(NotificationRepository notificationRepository) implements NotificationService {
 
     @Override
-    public void send(Notification notification) {
+    public void saveNotification(Notification notification) {
         notificationRepository.saveNotification(notification);
     }
 }

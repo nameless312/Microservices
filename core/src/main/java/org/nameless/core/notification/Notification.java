@@ -11,6 +11,7 @@ public record Notification(
         Integer toCustomerId,
         String toCustomerEmail,
         String sender,
+        String subject,
         String message,
         LocalDateTime sentAt
 ) {

@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         // send notification
         NotificationRequest notificationRequest =
-                new NotificationRequest(customer.getId(), customer.getEmail(), "Hi there mr.");
+                new NotificationRequest(customer.getId(), customer.getEmail(), "Notification alert", "Hi there mr.");
 
         rabbitMQMessageProducer.publish(
                 notificationRequest,

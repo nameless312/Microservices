@@ -17,6 +17,15 @@ spring:
     show-sql: true
   rabbitmq:
     addresses: localhost:5672
+  mail:
+    host: smtp-relay.brevo.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 eureka:
   client:
     service-url:

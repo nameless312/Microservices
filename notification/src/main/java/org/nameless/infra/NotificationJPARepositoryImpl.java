@@ -18,7 +18,6 @@ public class NotificationJPARepositoryImpl implements NotificationRepository {
     @Override
     public void saveNotification(Notification notification) {
         NotificationEntity notificationEntity = mapToEntity(notification);
-        notificationEntity.setSender("nameless");
         notificationEntity.setSentAt(LocalDateTime.now());
         notificationJPARepository.save(notificationEntity);
     }
@@ -28,6 +27,7 @@ public class NotificationJPARepositoryImpl implements NotificationRepository {
                 .toCustomerId(notification.toCustomerId())
                 .toCustomerEmail(notification.toCustomerEmail())
                 .sender(notification.sender())
+                .subject(notification.subject())
                 .sentAt(notification.sentAt())
                 .message(notification.message())
                 .build();
@@ -40,6 +40,7 @@ public class NotificationJPARepositoryImpl implements NotificationRepository {
                 .toCustomerEmail(notification.toCustomerEmail())
                 .sender(notification.sender())
                 .sentAt(notification.sentAt())
+                .subject(notification.subject())
                 .message(notification.message())
                 .build();
     }

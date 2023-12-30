@@ -30,6 +30,6 @@ public class NotificationController {
                 .toCustomerEmail(notificationRequest.toCustomerName())
                 .message(notificationRequest.message())
                 .build();
-        notificationService.send(notification);
+        notificationService.saveNotification(notification);
     }
 }
