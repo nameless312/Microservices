@@ -29,6 +29,8 @@ eureka:
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+  file:
+    name: /tmp/logs/customer/${spring.application.name}-log
 management:
   tracing:
     sampling:

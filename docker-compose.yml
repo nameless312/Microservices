@@ -57,6 +57,8 @@ services:
       - spring
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    volumes:
+      - ./tmp/logs/eureka:/logs
 
   api-gateway:
     image: nameless312/api-gateway:latest
@@ -70,6 +72,8 @@ services:
       - spring
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    volumes:
+      - ./tmp/logs/gateway:/logs
 
   customer:
     image: nameless312/customer:latest
@@ -86,6 +90,8 @@ services:
       - postgres
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    volumes:
+      - ./tmp/logs/customer:/logs
 
   fraud:
     image: nameless312/fraud:latest
@@ -102,6 +108,8 @@ services:
       - postgres
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    volumes:
+      - ./tmp/logs/fraud:/logs
 
   notification:
     image: nameless312/notification:latest
@@ -118,12 +126,56 @@ services:
       - postgres
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    volumes:
+      - ./tmp/logs/notification:/logs
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - elk
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.2
+    container_name: logstash
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - /tmp/logs:/logs
+    ports:
+      - "5000:5000"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.2
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+      - ELASTIC_PASSWORD=No6RI9tl3MCXtNK3EjB7
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
 
 networks:
   postgres:
     driver: bridge
   spring:
     driver: bridge
+  elk:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "true"
 
 volumes:
   postgres:
