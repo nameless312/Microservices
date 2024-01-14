@@ -18,7 +18,8 @@ docker compose up -d
 mvn clean package -P build-docker-image
 ```
 
-## Add the email environment variables for the smtp server while running or in the application.properties file
+## Notifications Microservice (Email)
+To have the notifications microservice work, we need to supply the following environment variables to the project to have the smtp server work. We can either add these to the application.properties file or to the docker environment variables when we run the program.
 ```txt
 -Dspring.mail.host=<host> -Dspring.mail.port=<port> -Dspring.mail.username=<Username> -Dspring.mail.password=<Password>
 ```
