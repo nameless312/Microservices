@@ -24,6 +24,13 @@ spring:
           auth: true
           starttls:
             enable: true
+  kafka:
+    consumer:
+      bootstrap-servers: kafka1:9092
+      group-id: notifications
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 eureka:
   client:
     service-url:
