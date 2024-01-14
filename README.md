@@ -6,6 +6,10 @@ To help monitor these services, we use a few different tools. For response timin
 
 To manage the microservices we use Netflix's Eureka Server. Alongside this we also use the Spring API Gateway as an entrypoint to our Customer endpoint.
 
+## Project Architecture
+![image](https://raw.githubusercontent.com/nameless312/Microservices/kafka/documentation/architecture.png?raw=true)
+
+
 ## How to run with Docker
 ---
 ```bash
