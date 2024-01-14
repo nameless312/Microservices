@@ -15,8 +15,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-  rabbitmq:
-    addresses: localhost:5672
+#  rabbitmq:
+#    addresses: localhost:5672
   kafka:
     producer:
       bootstrap-servers: localhost:9092

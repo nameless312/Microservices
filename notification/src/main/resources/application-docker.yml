@@ -15,8 +15,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-  rabbitmq:
-    addresses: rabbitmq:5672
+#  rabbitmq:
+#    addresses: rabbitmq:5672
   mail:
     properties:
       mail:
@@ -53,10 +53,10 @@ management:
   zipkin:
     tracing:
       endpoint: http://zipkin:9411/api/v2/spans
-rabbitmq:
-  exchanges:
-    internal: internal.exchange
-  queues:
-    notification: notification.queue
-  routing-keys:
-    internal-notification: internal.notification.routing-key
+#rabbitmq:
+#  exchanges:
+#    internal: internal.exchange
+#  queues:
+#    notification: notification.queue
+#  routing-keys:
+#    internal-notification: internal.notification.routing-key

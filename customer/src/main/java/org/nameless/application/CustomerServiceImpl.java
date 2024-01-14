@@ -1,6 +1,6 @@
 package org.nameless.application;
 
-import org.nameless.kafka.amqp.KafkaProducer;
+import org.nameless.infra.amqp.KafkaProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.nameless.core.customer.Customer;
 import org.nameless.core.customer.CustomerService;

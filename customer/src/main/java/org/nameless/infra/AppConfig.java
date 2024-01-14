@@ -21,7 +21,4 @@ public class AppConfig {
     public Capability capability(final MeterRegistry registry) {
         return new MicrometerCapability(registry);
     }
-
-//    @Bean
-//    public KafkaProducer kafkaProducer()
 }
