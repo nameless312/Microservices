@@ -92,6 +92,7 @@ services:
       - kafka
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_KAFKA_PRODUCER_BOOTSTRAP-SERVERS=kafka1:29092
     volumes:
       - logs:/logs/customer
 
@@ -140,21 +141,9 @@ services:
       - node.name=elasticsearch
       - discovery.type=single-node
       - cluster.name=es-docker-cluster
-      - xpack.license.self_generated.type=trial
-      - xpack.security.http.ssl.enabled=true
-      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/es03.key
-      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/rootCA.pem
-      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/es01.crt
-      - xpack.security.transport.ssl.enabled=true
-      - xpack.security.transport.ssl.verification_mode=certificate
-      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/rootCA.pem
-      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/es01.crt
-      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/es01.key
+      - xpack.security.enabled=false
     volumes:
-      - data:/usr/share/elasticsearch/data
-      - ./elk/certs/es01.crt:/usr/share/elasticsearch/config/es01.crt
-      - ./elk/certs/es01.key:/usr/share/elasticsearch/config/es01.key
-      - ./elk/certs/rootCA.pem:/usr/share/elasticsearch/config/rootCA.pem
+      - esdata:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
     networks:
@@ -181,16 +170,10 @@ services:
       - node.name=kibana
       - cluster.name=es-docker-cluster
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/rootCA.pem
-      - SERVER_SSL_ENABLED=true
-      - SERVER_SSL_KEY=/usr/share/kibana/config/kib01.key
-      - SERVER_SSL_CERTIFICATE=/usr/share/kibana/config/kib01.crt
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=p5h3sKhLqvYi9VHScYHo
     ports:
       - "5601:5601"
-    volumes:
-      - ./elk/certs/kib01.crt:/usr/share/kibana/config/kib01.crt
-      - ./elk/certs/kib01.key:/usr/share/kibana/config/kib01.key
-      - ./elk/certs/rootCA.pem:/usr/share/kibana/config/rootCA.pem
     networks:
       - elk
     depends_on:
@@ -239,8 +222,6 @@ networks:
     driver: bridge
   elk:
     driver: bridge
-    driver_opts:
-      com.docker.network.bridge.enable_icc: "true"
   kafka:
     driver: bridge
 
@@ -248,5 +229,5 @@ volumes:
   postgres:
   pgadmin:
   logs:
-  data:
+  esdata:
     driver: local

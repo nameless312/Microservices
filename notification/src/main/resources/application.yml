@@ -33,6 +33,8 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: org.nameless.*
+kafka:
+  server: localhost:9092
 eureka:
   client:
     service-url:
