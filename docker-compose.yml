@@ -58,7 +58,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
-      - ./tmp/logs/eureka:/logs
+      - logs:/logs/eureka
 
   api-gateway:
     image: nameless312/api-gateway:latest
@@ -73,7 +73,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
-      - ./tmp/logs/gateway:/logs
+      - logs:/logs/gateway
 
   customer:
     image: nameless312/customer:latest
@@ -93,7 +93,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
-      - ./tmp/logs/customer:/logs
+      - logs:/logs/customer
 
   fraud:
     image: nameless312/fraud:latest
@@ -111,7 +111,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
-      - ./tmp/logs/fraud:/logs
+      - logs:/logs/fraud
 
   notification:
     image: nameless312/notification:latest
@@ -131,7 +131,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
-      - ./tmp/logs/notification:/logs
+      - logs:/logs/notification
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.11.2
@@ -148,7 +148,7 @@ services:
     container_name: logstash
     volumes:
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - /tmp/logs:/logs
+      - logs:/logs
     ports:
       - "5000:5000"
     networks:
@@ -222,3 +222,4 @@ networks:
 volumes:
   postgres:
   pgadmin:
+  logs:
