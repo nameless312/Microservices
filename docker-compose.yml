@@ -137,7 +137,24 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.11.2
     container_name: elasticsearch
     environment:
+      - node.name=elasticsearch
       - discovery.type=single-node
+      - cluster.name=es-docker-cluster
+      - xpack.license.self_generated.type=trial
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/es03.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/rootCA.pem
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/es01.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/rootCA.pem
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/es01.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/es01.key
+    volumes:
+      - data:/usr/share/elasticsearch/data
+      - ./elk/certs/es01.crt:/usr/share/elasticsearch/config/es01.crt
+      - ./elk/certs/es01.key:/usr/share/elasticsearch/config/es01.key
+      - ./elk/certs/rootCA.pem:/usr/share/elasticsearch/config/rootCA.pem
     ports:
       - "9200:9200"
     networks:
@@ -146,8 +163,9 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:8.11.2
     container_name: logstash
+    command: logstash -f /usr/share/logstash/pipeline/logstash.conf
     volumes:
-      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./elk/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - logs:/logs
     ports:
       - "5000:5000"
@@ -160,12 +178,19 @@ services:
     image: docker.elastic.co/kibana/kibana:8.11.2
     container_name: kibana
     environment:
+      - node.name=kibana
+      - cluster.name=es-docker-cluster
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - xpack.security.http.ssl.enabled=false
-      - xpack.security.transport.ssl.enabled=false
-      - ELASTIC_PASSWORD=No6RI9tl3MCXtNK3EjB7
+      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/kibana/config/rootCA.pem
+      - SERVER_SSL_ENABLED=true
+      - SERVER_SSL_KEY=/usr/share/kibana/config/kib01.key
+      - SERVER_SSL_CERTIFICATE=/usr/share/kibana/config/kib01.crt
     ports:
       - "5601:5601"
+    volumes:
+      - ./elk/certs/kib01.crt:/usr/share/kibana/config/kib01.crt
+      - ./elk/certs/kib01.key:/usr/share/kibana/config/kib01.key
+      - ./elk/certs/rootCA.pem:/usr/share/kibana/config/rootCA.pem
     networks:
       - elk
     depends_on:
@@ -223,3 +248,5 @@ volumes:
   postgres:
   pgadmin:
   logs:
+  data:
+    driver: local
