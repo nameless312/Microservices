@@ -22,7 +22,7 @@ logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
   file:
-    name: /logs/${spring.application.name}-log
+    name: /logs/gateway/${spring.application.name}-log
 management:
   tracing:
     sampling:

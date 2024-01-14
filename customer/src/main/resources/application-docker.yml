@@ -15,8 +15,15 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-  rabbitmq:
-    addresses: rabbitmq:5672
+#  rabbitmq:
+#    addresses: rabbitmq:5672
+  kafka:
+    producer:
+      bootstrap-servers: kafka1:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+kafka:
+  server: kafka1:29092
 eureka:
   client:
     service-url:
@@ -30,7 +37,7 @@ logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
   file:
-    name: /logs/${spring.application.name}-log
+    name: /logs/customer/${spring.application.name}-log
 management:
   tracing:
     sampling:
