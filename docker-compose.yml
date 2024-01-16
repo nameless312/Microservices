@@ -131,6 +131,10 @@ services:
       - kafka
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_MAIL_HOST=${SPRING_MAIL_HOST}
+      - SPRING_MAIL_PORT=${SPRING_MAIL_PORT}
+      - SPRING_MAIL_USERNAME=${SPRING_MAIL_USERNAME}
+      - SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD}
     volumes:
       - logs:/logs/notification
 
