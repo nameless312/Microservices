@@ -15,8 +15,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-  rabbitmq:
-    addresses: localhost:5672
+#  rabbitmq:
+#    addresses: localhost:5672
   mail:
     properties:
       mail:
@@ -24,6 +24,17 @@ spring:
           auth: true
           starttls:
             enable: true
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: notifications
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: org.nameless.*
+kafka:
+  server: localhost:9092
 eureka:
   client:
     service-url:
@@ -39,10 +50,10 @@ management:
   tracing:
     sampling:
       probability: 1.0
-rabbitmq:
-  exchanges:
-    internal: internal.exchange
-  queues:
-    notification: notification.queue
-  routing-keys:
-    internal-notification: internal.notification.routing-key
+#rabbitmq:
+#  exchanges:
+#    internal: internal.exchange
+#  queues:
+#    notification: notification.queue
+#  routing-keys:
+#    internal-notification: internal.notification.routing-key

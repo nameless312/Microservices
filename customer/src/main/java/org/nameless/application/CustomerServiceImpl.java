@@ -1,7 +1,7 @@
 package org.nameless.application;
 
+import org.nameless.infra.amqp.KafkaProducer;
 import lombok.extern.slf4j.Slf4j;
-import org.nameless.amqp.RabbitMQMessageProducer;
 import org.nameless.core.customer.Customer;
 import org.nameless.core.customer.CustomerService;
 import org.nameless.fraud.FraudClient;
@@ -13,14 +13,18 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
-    private RabbitMQMessageProducer rabbitMQMessageProducer;
+//    private RabbitMQMessageProducer rabbitMQMessageProducer;
+
+    private final KafkaProducer kafkaProducer;
     private final FraudClient fraudClient;
 
     public CustomerServiceImpl(CustomerRepository customerRepository,
-                               RabbitMQMessageProducer rabbitMQMessageProducer,
+                               KafkaProducer kafkaProducer,
+//                               RabbitMQMessageProducer rabbitMQMessageProducer,
                                FraudClient fraudClient) {
         this.customerRepository = customerRepository;
-        this.rabbitMQMessageProducer = rabbitMQMessageProducer;
+        this.kafkaProducer = kafkaProducer;
+//        this.rabbitMQMessageProducer = rabbitMQMessageProducer;
         this.fraudClient = fraudClient;
     }
 
@@ -38,10 +42,11 @@ public class CustomerServiceImpl implements CustomerService {
                         "Welcome to nameless corp",
                         "Welcome to nameless corp " + customer.getFirstName() + " " + customer.getLastName() + ".");
 
-        rabbitMQMessageProducer.publish(
-                notificationRequest,
-                "internal.exchange",
-                "internal.notification.routing-key"
-        );
+//        rabbitMQMessageProducer.publish(
+//                notificationRequest,
+//                "internal.exchange",
+//                "internal.notification.routing-key"
+//        );
+        kafkaProducer.publishMessage("notifications", notificationRequest);
     }
 }
