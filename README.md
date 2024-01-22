@@ -9,7 +9,7 @@ To manage the microservices we use Netflix's Eureka Server. Alongside this we al
 For a security measure as well as general code maintenance it's also included in the dockerfile a sonarqube instance to run against our code.
 
 ## Project Architecture
-![image](https://raw.githubusercontent.com/nameless312/Microservices/kafka/documentation/architecture.png?raw=true)
+![image](https://raw.githubusercontent.com/nameless312/Microservices/main/documentation/architecture.png?raw=true)
 
 
 ## How to run with Docker
